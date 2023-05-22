@@ -38,7 +38,7 @@ const App = () => {
         <Stack.Screen
           name={HomeRoutes.Home}
           component={Home}
-          options={{title: 'June Home Screen'}}
+          options={{title: 'Home Screen'}}
         />
         <Stack.Screen
           name={HomeRoutes.Posts}
