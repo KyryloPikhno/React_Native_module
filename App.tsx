@@ -1,13 +1,13 @@
-import React from 'react';
-import {StatusBar} from 'react-native';
-import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import {Home} from './screens/Home';
-import {Posts} from './screens/Posts';
-import {HomeRoutes} from './routes/HomeRoute';
+import {NavigationContainer} from '@react-navigation/native';
 import {MainTab} from './screens/tabs/MainTab';
+import {HomeRoutes} from './routes/HomeRoute';
+import {StatusBar} from 'react-native';
+import {Posts} from './screens/Posts';
 import {Provider} from 'react-redux';
+import {Home} from './screens/Home';
 import {store} from './redux/store';
+import React from 'react';
 
 const Stack = createNativeStackNavigator();
 
