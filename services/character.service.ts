@@ -1,12 +1,8 @@
-import {baseUrl, url} from '../configs/urls';
+import {axiosService} from './axios.service';
+import {url} from '../configs/urls';
 
-const fetchCharacter = async () => {
-  try {
-    const response = await fetch(`${baseUrl}/${url.character}`);
-    return await response.json();
-  } catch (error) {
-    throw new Error('Failed to fetch users.');
-  }
+const characterService = {
+  getAll: () => axiosService(url.character, {params: {page: 1, count: 2}}),
 };
 
-export {fetchCharacter};
+export {characterService};

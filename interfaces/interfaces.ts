@@ -10,3 +10,7 @@ export interface IInitialState {
   loading: boolean;
   error: string | null;
 }
+
+export interface ICharacterResponse {
+  results: ICharacter[];
+}

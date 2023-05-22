@@ -3,14 +3,15 @@ import {NavigationContainer} from '@react-navigation/native';
 import {Characters} from './screens/Characters';
 import {MainTab} from './screens/tabs/MainTab';
 import {HomeRoutes} from './routes/HomeRoute';
+import {setupStore} from './redux/store';
 import {StatusBar} from 'react-native';
 import {Posts} from './screens/Posts';
 import {Provider} from 'react-redux';
 import {Home} from './screens/Home';
-import {store} from './redux/store';
 import React from 'react';
 
 const Stack = createNativeStackNavigator();
+const store = setupStore();
 
 const App = () => {
   return (

@@ -1,7 +1,7 @@
-const baseUrl = 'https://rickandmortyapi.com/api';
+const baseURL = 'https://rickandmortyapi.com/api';
 
 const url = {
-  character: 'character',
+  character: '/character',
 };
 
-export {baseUrl, url};
+export {baseURL, url};
