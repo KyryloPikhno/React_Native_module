@@ -49,4 +49,10 @@ const charactersSlice = createSlice({
   },
 });
 
-export default charactersSlice.reducer;
+const {reducer: charactersReducer} = charactersSlice;
+
+const charactersActions = {
+  getAll,
+};
+
+export {charactersReducer, charactersActions};
