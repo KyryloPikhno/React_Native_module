@@ -1,18 +1,6 @@
 import {createSlice, createAsyncThunk} from '@reduxjs/toolkit';
 import {fetchCharacter} from '../services/character.service';
-
-interface ICharacter {
-  id: number;
-  name: string;
-  status: string;
-  image: string;
-}
-
-interface IInitialState {
-  characters: ICharacter[];
-  loading: boolean;
-  error: string | null;
-}
+import {IInitialState} from '../interfaces/interfaces';
 
 const initialState: IInitialState = {
   characters: [],

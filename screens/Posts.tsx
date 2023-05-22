@@ -1,7 +1,7 @@
-import React from 'react';
-import {Button, Text, View} from 'react-native';
 import {useNavigation, useRoute} from '@react-navigation/native';
 import {HomeRoutes, PostsRouteProps} from '../routes/HomeRoute';
+import {Button, Text, View} from 'react-native';
+import React from 'react';
 
 export const Posts = () => {
   const navigation = useNavigation<any>();

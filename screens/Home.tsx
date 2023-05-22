@@ -14,8 +14,14 @@ export const Home = () => {
       }}>
       <Text>Home Screen</Text>
       <Button
-        title={'Go to Posts screen'}
+        title={'Go to Posts'}
         onPress={() => navigation.navigate(HomeRoutes.Posts, {postId: '1'})}
+      />
+      <Button
+        title={'Go to Characters'}
+        onPress={() =>
+          navigation.navigate(HomeRoutes.Characters, {charactersId: '1'})
+        }
       />
     </View>
   );

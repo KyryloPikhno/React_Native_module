@@ -1,5 +1,6 @@
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {NavigationContainer} from '@react-navigation/native';
+import {Characters} from './screens/Characters';
 import {MainTab} from './screens/tabs/MainTab';
 import {HomeRoutes} from './routes/HomeRoute';
 import {StatusBar} from 'react-native';
@@ -42,6 +43,11 @@ const App = () => {
             name={HomeRoutes.MainTab}
             component={MainTab}
             options={{title: 'Tabs'}}
+          />
+          <Stack.Screen
+            name={HomeRoutes.Characters}
+            component={Characters}
+            options={{title: 'Characters'}}
           />
         </Stack.Navigator>
       </NavigationContainer>
