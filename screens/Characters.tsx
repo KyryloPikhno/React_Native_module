@@ -1,51 +1,42 @@
+import {Button, FlatList, Image, StyleSheet, Text, View} from 'react-native';
 import {CharactersRouteProps, HomeRoutes} from '../routes/HomeRoute';
 import {useNavigation, useRoute} from '@react-navigation/native';
 import {charactersActions} from '../redux/character.slice';
 import {useDispatch, useSelector} from 'react-redux';
-import {Button, FlatList, Image, Text, View} from 'react-native';
-import React, {useEffect} from 'react';
 import {ICharacter} from '../interfaces/interfaces';
-
-// type IGetAll = AsyncThunkAction<
-//   any,
-//   void,
-//   {
-//     state: any;
-//   }
-// > &
-//   AnyAction;
+import React, {useLayoutEffect} from 'react';
 
 export const Characters = () => {
   const navigation = useNavigation<any>();
   const {params} = useRoute<CharactersRouteProps<HomeRoutes.Characters>>();
   console.log(params.charactersId);
 
-  const state: any = useSelector<any>(state => state.charactersReducer);
-
+  const {characters}: any = useSelector<any>(state => state.charactersReducer);
+  console.log(characters);
   const dispatch = useDispatch();
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     dispatch<any>(charactersActions.getAll());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const renderItem = ({item}: {item: ICharacter}) => {
     return (
-      <View key={item.id}>
-        <Text>id: {item.id}</Text>
-        <Text>Name: {item.name}</Text>
-        <Image source={{uri: item.image}} />
+      <View style={styles.listItem} key={item.id}>
+        <Text style={styles.listItemText}>id: {item.id}</Text>
+        <Text style={styles.listItemText}>Name: {item.name}</Text>
+        <Text style={styles.listItemText}>Gender: {item.gender}</Text>
+        <Image style={styles.img} source={{uri: item.image}} />
       </View>
     );
   };
 
   return (
-    <View>
-      <Text>Characters screen</Text>
-      <View>
-        {!!state.characters.length && (
-          <FlatList data={state.characters} renderItem={renderItem} />
-        )}
-      </View>
+    <View style={styles.container}>
+      <Text style={styles.title}>Characters screen</Text>
+      {!!characters.length && (
+        <FlatList data={characters} renderItem={renderItem} />
+      )}
       <Button title={'Go back'} onPress={() => navigation.goBack()} />
       <Button
         title={'Go to tabs'}
@@ -54,3 +45,36 @@ export const Characters = () => {
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    padding: 16,
+  },
+  title: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    marginBottom: 16,
+  },
+  listItem: {
+    padding: 8,
+    marginBottom: 8,
+    borderWidth: 2,
+    borderStyle: 'solid',
+    borderColor: 'black',
+  },
+  listItemText: {
+    fontSize: 16,
+  },
+  backButton: {
+    marginBottom: 16,
+  },
+  tabsButton: {
+    marginBottom: 16,
+  },
+  img: {
+    margin: 16,
+    height: 80,
+    width: 80,
+  },
+});

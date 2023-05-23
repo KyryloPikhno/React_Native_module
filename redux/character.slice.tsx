@@ -1,6 +1,6 @@
+import {ICharacterResponse, IInitialState} from '../interfaces/interfaces';
 import {createSlice, createAsyncThunk} from '@reduxjs/toolkit';
 import {characterService} from '../services/character.service';
-import {ICharacterResponse, IInitialState} from '../interfaces/interfaces';
 import {AxiosResponse} from 'axios';
 
 const initialState: IInitialState = {
@@ -9,18 +9,14 @@ const initialState: IInitialState = {
   error: null,
 };
 
-export const getAll = createAsyncThunk(
-  'characters/fetchCharacters',
-  async () => {
-    const response: AxiosResponse<ICharacterResponse> =
-      await characterService.getAll();
-    console.log(response.data.results);
-    return response.data.results;
-  },
-);
+export const getAll = createAsyncThunk('charactersSlice/getAll', async () => {
+  const response: AxiosResponse<ICharacterResponse> =
+    await characterService.getAll();
+  return response.data.results;
+});
 
 const charactersSlice = createSlice({
-  name: 'characters',
+  name: 'charactersSlice',
   initialState,
   reducers: {},
   extraReducers: builder => {
