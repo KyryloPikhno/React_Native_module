@@ -11,3 +11,13 @@ declare global {
 }
 
 export type Navigation = NavigationProp<ReactNavigation.RootParamList>;
+
+export interface User {
+  name?: string;
+  username: string;
+  password: string;
+}
+
+export interface Background {
+  children: ReactNode;
+}

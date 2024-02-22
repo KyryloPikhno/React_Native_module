@@ -9,15 +9,15 @@ import RegisterScreen from './screens/RegisterScreen';
 
 const Stack = createNativeStackNavigator();
 
-const App = (): JSX.Element => {
+const App = () => {
   return (
     <NavigationContainer>
       <StatusBar barStyle="light-content" backgroundColor="#6a51ae" />
       <Stack.Navigator
-        initialRouteName={'Login'}
+        initialRouteName="Login"
         screenOptions={{
           headerStyle: {
-            backgroundColor: '#f4511e',
+            backgroundColor: '#808080',
           },
           headerTintColor: '#fff',
           headerTitleStyle: {

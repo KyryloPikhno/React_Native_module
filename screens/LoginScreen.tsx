@@ -1,32 +1,41 @@
-import React, { useState } from 'react';
-import { View, TextInput, Button, Alert } from 'react-native';
+import React from 'react';
+import { View, TextInput, Button, Alert, Text } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation } from '@react-navigation/native';
-import { Navigation } from '../types';
+import { Navigation, User } from '../types';
 import styles from '../style';
+import { Formik } from 'formik';
+import * as Yup from 'yup';
 
-interface User {
-  username: string;
-  password: string;
-}
+const initialValues = {
+  username: '',
+  password: '',
+};
+
+const validationSchema = Yup.object().shape({
+  username: Yup.string()
+    .required('Username is required')
+    .min(2, 'Username must be at least  2 characters')
+    .max(30, 'Username must be at most  30 characters')
+    .matches(/^[a-zA-Z0-9]*$/, 'Username can only contain letters'),
+  password: Yup.string()
+    .required('Password is required')
+    .min(2, 'Password must be at least  2 characters')
+    .max(30, 'Password must be at most  30 characters'),
+});
 
 const LoginScreen = () => {
-  const [formState, setFormState] = useState<User>({
-    username: '',
-    password: '',
-  });
-
   const navigation = useNavigation<Navigation>();
 
-  const handleLogin = async () => {
+  const handleLogin = async (values: User) => {
     try {
       const user = await AsyncStorage.getItem('user');
       if (user) {
         const { username: storedUsername, password: storedPassword } =
           JSON.parse(user);
         if (
-          formState.username === storedUsername &&
-          formState.password === storedPassword
+          values.username === storedUsername &&
+          values.password === storedPassword
         ) {
           navigation.navigate('Home');
         } else {
@@ -40,35 +49,54 @@ const LoginScreen = () => {
     }
   };
 
-  const handleInputChange = (key: string, value: string) => {
-    setFormState((prevState) => ({
-      ...prevState,
-      [key]: value,
-    }));
-  };
-
   return (
     <View style={styles.container}>
-      <TextInput
-        style={styles.input}
-        placeholder="Username"
-        onChangeText={(value) => handleInputChange('username', value)}
-        value={formState.username}
-      />
-      <TextInput
-        style={styles.input}
-        placeholder="Password"
-        onChangeText={(value) => handleInputChange('password', value)}
-        value={formState.password}
-        secureTextEntry
-      />
-      <View style={styles.buttonContainer}>
-        <Button title="Login" onPress={handleLogin} />
-        <Button
-          title="New user"
-          onPress={() => navigation.navigate('Register')}
-        />
-      </View>
+      <Formik
+        initialValues={initialValues}
+        validationSchema={validationSchema}
+        onSubmit={handleLogin}
+        isInitialValid={false}
+      >
+        {({
+          handleChange,
+          handleBlur,
+          handleSubmit,
+          values,
+          errors,
+          touched = {},
+        }) => (
+          <>
+            <TextInput
+              style={styles.input}
+              placeholder="Username"
+              onChangeText={handleChange('username')}
+              onBlur={handleBlur('username')}
+              value={values.username}
+            />
+            {errors.username && touched.username && (
+              <Text style={styles.errorTextUsername}>{errors.username}</Text>
+            )}
+            <TextInput
+              style={styles.input}
+              placeholder="Password"
+              onChangeText={handleChange('password')}
+              onBlur={handleBlur('password')}
+              value={values.password}
+              secureTextEntry
+            />
+            {errors.password && touched.password && (
+              <Text style={styles.errorTextPassword}>{errors.password}</Text>
+            )}
+            <View style={styles.buttonContainer}>
+              <Button title="Login" onPress={handleSubmit} />
+              <Button
+                title="New user"
+                onPress={() => navigation.navigate('Register')}
+              />
+            </View>
+          </>
+        )}
+      </Formik>
     </View>
   );
 };
