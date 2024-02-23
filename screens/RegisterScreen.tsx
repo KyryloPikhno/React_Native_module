@@ -60,7 +60,7 @@ const RegisterScreen: React.FC<RegisterScreenProps> = ({ navigation }) => {
         initialValues={initialValues}
         validationSchema={validationSchema}
         onSubmit={handleRegister}
-        isInitialValid={false}
+        validateOnMount
       >
         {({
           handleChange,

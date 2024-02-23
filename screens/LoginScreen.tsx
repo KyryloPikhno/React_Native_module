@@ -55,7 +55,7 @@ const LoginScreen = () => {
         initialValues={initialValues}
         validationSchema={validationSchema}
         onSubmit={handleLogin}
-        isInitialValid={false}
+        validateOnMount
       >
         {({
           handleChange,
