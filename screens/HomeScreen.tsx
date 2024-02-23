@@ -1,7 +1,7 @@
 import React, { useLayoutEffect, useState } from 'react';
 import { View, Text } from 'react-native';
-import styles from '../style';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import styles from '../style';
 
 const HomeScreen = () => {
   const [username, setUsername] = useState(null);
@@ -24,7 +24,7 @@ const HomeScreen = () => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>
+      <Text style={styles.textGreeting}>
         {username ? `Hi ${username}, you're logged in.` : 'Loading...'}
       </Text>
     </View>
